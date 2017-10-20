@@ -5,6 +5,7 @@ import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import PostCard from "./PostCard";
+import CategoriesSelect from "./CategoriesSelect";
 
 const SortFilterBar = () => (
   <div className="form-row">
@@ -24,7 +25,7 @@ const SortFilterBar = () => (
         Sort by
       </label>
       <select id="inputState" className="form-control">
-        <option>Score</option>
+        <option>Points</option>
         <option>Date</option>
       </select>
     </div>
@@ -32,12 +33,7 @@ const SortFilterBar = () => (
       <label for="inputCategory" className="col-form-label">
         Filter by category
       </label>
-      <select id="inputCategory" className="form-control">
-        <option>All</option>
-        <option>React</option>
-        <option>Redux</option>
-        <option>Udacity</option>
-      </select>
+      <CategoriesSelect all="1" catdefault="all" />
     </div>
   </div>
 );

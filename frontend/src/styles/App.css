@@ -34,3 +34,8 @@
 .inputfield {
   margin-bottom: 2rem;
 }
+
+.card-body-form-category {
+  margin-bottom: 2rem;
+  /*margin-top: 1rem;*/
+}

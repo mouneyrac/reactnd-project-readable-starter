@@ -8,7 +8,8 @@ import Comments from "./Comments";
 import CommentList from "./CommentList";
 import Vote from "./Vote";
 import EditBadge from "./EditBadge";
-import PostInfo from "./PostInfo";
+import DeleteBadge from "./DeleteBadge";
+import PointsAuthor from "./PointsAuthor";
 import moment from "moment";
 
 const PostCard = ({ postId, showComments }) => {
@@ -21,8 +22,9 @@ const PostCard = ({ postId, showComments }) => {
         body: "This is the post body.",
         author: "Jerome Mouneyrac",
         date: moment.unix(1506510573).fromNow(),
-        points: 9.2,
-        totalComments: 2
+        points: 9,
+        totalComments: 2,
+        category: "redux"
       };
       break;
     case "2":
@@ -32,7 +34,8 @@ const PostCard = ({ postId, showComments }) => {
         author: "Anonymous",
         date: moment.unix(1506500000).fromNow(),
         points: 2,
-        totalComments: 1
+        totalComments: 1,
+        category: "react"
       };
       break;
     default:
@@ -54,17 +57,22 @@ const PostCard = ({ postId, showComments }) => {
           </Link>
           &nbsp;
           <EditBadge postId={postId} />
+          &nbsp;
+          <DeleteBadge postId={postId} />
+          <span className="card-subtitle mb-2 text-muted">
+            &nbsp;({fakePost.category})
+          </span>
         </h4>
-        <PostInfo
+
+        <PointsAuthor
           author={fakePost.author}
           date={fakePost.date}
           points={fakePost.points}
+          category={fakePost.category}
         />
         <p className="card-text">{fakePost.body}</p>
 
         <p> {theComments} </p>
-
-        <Vote />
       </div>
     </div>
   );

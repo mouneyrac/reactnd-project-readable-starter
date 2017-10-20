@@ -5,7 +5,8 @@ import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import PostInfo from "./PostInfo";
+import PointsAuthor from "./PointsAuthor";
+import CategoriesSelect from "./CategoriesSelect";
 
 const PostForm = ({ postId }) => {
   let fakePost = {
@@ -23,7 +24,8 @@ const PostForm = ({ postId }) => {
         body: "Post content",
         author: "Jerome Mouneyrac",
         date: moment.unix(1506510573).fromNow(),
-        points: 9.2
+        points: 9.2,
+        category: "redux"
       };
 
       break;
@@ -34,7 +36,8 @@ const PostForm = ({ postId }) => {
         author: "Anonymous",
         date: moment.unix(1506500000).fromNow(),
         points: 2,
-        totalComments: 1
+        totalComments: 1,
+        category: "react"
       };
 
       break;
@@ -44,6 +47,9 @@ const PostForm = ({ postId }) => {
   return (
     <div className="card">
       <div className="card-body">
+        <div className="card-body-form-category">
+          Category <CategoriesSelect catdefault={fakePost.category} />
+        </div>
         <h4 className="card-title">
           <input
             autoFocus
@@ -55,7 +61,7 @@ const PostForm = ({ postId }) => {
           />
         </h4>
 
-        <PostInfo
+        <PointsAuthor
           author={fakePost.author}
           date={fakePost.date}
           points={fakePost.points}
