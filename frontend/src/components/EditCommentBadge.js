@@ -1,11 +1,12 @@
 //@flow
 import React from "react";
+import { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
-
+import CommentForm from "./CommentForm";
 import ReactModal from "react-modal";
 
-class DeleteBadge extends React.Component {
+class EditCommentBadge extends Component {
   constructor() {
     super();
     this.state = {
@@ -28,15 +29,15 @@ class DeleteBadge extends React.Component {
     return (
       <span>
         <span
-          className="badge badge-pill badge-danger"
+          className="badge badge-pill badge-primary"
           onClick={this.handleOpenModal}
         >
-          delete
+          edit
         </span>
 
         <ReactModal
           isOpen={this.state.showModal}
-          contentLabel="Delete"
+          contentLabel="Edit Comment"
           className="Modal__Bootstrap modal-dialog"
         >
           <div className="modal-content">
@@ -49,27 +50,10 @@ class DeleteBadge extends React.Component {
                 <span aria-hidden="true">&times;</span>
                 <span className="sr-only">Close</span>
               </button>
-              <h4 className="modal-title">Confirmation</h4>
+              <h4 className="modal-title">Edit Comment</h4>
             </div>
             <div className="modal-body">
-              <h4>Delete the item</h4>
-              <p>This action can not be reverted, are you sure?</p>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-default"
-                onClick={this.handleCloseModal}
-              >
-                Close
-              </button>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={this.handleSaveClicked}
-              >
-                Delete
-              </button>
+              <CommentForm />
             </div>
           </div>
         </ReactModal>
@@ -78,4 +62,4 @@ class DeleteBadge extends React.Component {
   }
 }
 
-export default DeleteBadge;
+export default EditCommentBadge;

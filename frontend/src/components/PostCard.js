@@ -1,12 +1,10 @@
 //@flow
 import React from "react";
-import PropTypes from "prop-types";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import Comments from "./Comments";
 import CommentList from "./CommentList";
-import Vote from "./Vote";
 import EditBadge from "./EditBadge";
 import DeleteBadge from "./DeleteBadge";
 import PointsAuthor from "./PointsAuthor";
@@ -77,7 +75,5 @@ const PostCard = ({ postId, showComments }) => {
     </div>
   );
 };
-
-PostCard.propTypes = {};
 
 export default PostCard;

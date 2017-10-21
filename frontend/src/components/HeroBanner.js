@@ -1,10 +1,8 @@
 //@flow
 import React from "react";
-import PropTypes from "prop-types";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import { Link } from "react-router-dom";
-import PostCard from "./PostCard";
 
 const HeroBanner = () => (
   <div className="jumbotron">
@@ -21,7 +19,5 @@ const HeroBanner = () => (
     </p>
   </div>
 );
-
-HeroBanner.propTypes = {};
 
 export default HeroBanner;

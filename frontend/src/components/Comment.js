@@ -1,10 +1,9 @@
 //@flow
 import React from "react";
-import PropTypes from "prop-types";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import PointsAuthor from "./PointsAuthor";
-import EditBadge from "./EditBadge";
+import EditCommentBadge from "./EditCommentBadge";
 import DeleteBadge from "./DeleteBadge";
 
 const Comment = ({ commentId }) => {
@@ -13,7 +12,7 @@ const Comment = ({ commentId }) => {
       <div className="card-body">
         <h6 className="card-title">
           This is my first comment &nbsp;
-          <EditBadge commentId={commentId} />
+          <EditCommentBadge commentId={commentId} />
           &nbsp;
           <DeleteBadge commentId={commentId} />
         </h6>
@@ -27,7 +26,5 @@ const Comment = ({ commentId }) => {
     </div>
   );
 };
-
-Comment.propTypes = {};
 
 export default Comment;

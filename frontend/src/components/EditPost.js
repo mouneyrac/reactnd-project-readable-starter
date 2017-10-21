@@ -1,6 +1,5 @@
 //@flow
 import React from "react";
-import PropTypes from "prop-types";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import Crumbtrail from "./Crumbtrail";
@@ -19,7 +18,5 @@ const EditPost = ({ match }) => {
     </div>
   );
 };
-
-EditPost.propTypes = {};
 
 export default EditPost;

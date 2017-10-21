@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from "react";
-import logo from "../images/logo.svg";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import { Route } from "react-router-dom";

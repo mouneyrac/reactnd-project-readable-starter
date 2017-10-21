@@ -1,11 +1,8 @@
 //@flow
 import React from "react";
-import PropTypes from "prop-types";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
-import { Link } from "react-router-dom";
 import moment from "moment";
-import Comment from "./Comment";
 
 const CommentForm = ({ postId }) => {
   let fakeComment = {
@@ -55,7 +52,5 @@ const CommentForm = ({ postId }) => {
     </div>
   );
 };
-
-CommentForm.propTypes = {};
 
 export default CommentForm;
