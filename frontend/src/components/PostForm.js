@@ -1,85 +1,153 @@
 //@flow
-import React from "react";
+import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import moment from "moment";
 import PointsAuthor from "./PointsAuthor";
 import CategoriesSelect from "./CategoriesSelect";
+import { connect } from "react-redux";
+import { addPost } from "../utils/api";
 
-const PostForm = ({ postId }) => {
-  let fakePost = {
-    title: "",
-    body: "",
-    author: "Anonymous",
-    points: 0,
-    date: "now"
+class PostForm extends Component {
+  state = {
+    thePost: {
+      id: 8,
+      title: "",
+      body: "",
+      author: this.props.fullname,
+      points: 0,
+      timestamp: moment().unix(),
+      category: Object.keys(this.props.categories)[0]
+    }
   };
 
-  switch (postId) {
-    case "1":
-      fakePost = {
-        title: "Post title",
-        body: "Post content",
-        author: "Jerome Mouneyrac",
-        date: moment.unix(1506510573).fromNow(),
-        points: 9.2,
-        category: "redux"
-      };
-
-      break;
-    case "2":
-      fakePost = {
-        title: "This is the Anonymous post",
-        body: "This is the anonymous post body.",
-        author: "Anonymous",
-        date: moment.unix(1506500000).fromNow(),
-        points: 2,
-        totalComments: 1,
-        category: "react"
-      };
-
-      break;
-    default:
+  componentDidUpdate() {
+    // Adding a post: update the Post default category
+    // when the categories have changed (i.e. they got updated by thunk)
+    if (
+      this.state.thePost.id === 8 &&
+      this.state.thePost.category !== Object.keys(this.props.categories)[0]
+    ) {
+      this.updatePost("category", Object.keys(this.props.categories)[0]);
+    }
   }
 
-  return (
-    <div className="card">
-      <div className="card-body">
-        <div className="card-body-form-category">
-          Category <CategoriesSelect catdefault={fakePost.category} />
-        </div>
-        <h4 className="card-title">
-          <input
-            autoFocus
-            value={fakePost.title}
-            type="text"
-            placeholder="Post title"
-            className="form-control inputfield"
-            aria-label="title"
-          />
-        </h4>
+  updatePost(field, value) {
+    let newPost = Object.assign(this.state.thePost, {
+      [field]: value
+    });
+    this.setState({ thePost: newPost });
+  }
 
+  save() {
+    console.log("in save");
+    addPost(this.state.thePost);
+  }
+
+  render() {
+    const { postId } = this.props;
+
+    console.log(this.state.thePost);
+    let thePost;
+    switch (postId) {
+      case "1":
+        thePost = {
+          id: 1,
+          title: "Post title",
+          body: "Post content",
+          author: "Jerome Mouneyrac",
+          timestamp: 1506510573,
+          points: 9.2,
+          category: "redux"
+        };
+        this.setState({ thePost: thePost });
+        break;
+      case "2":
+        thePost = {
+          id: 2,
+          title: "This is the Anonymous post",
+          body: "This is the anonymous post body.",
+          author: "Anonymous",
+          timestamp: 1506500000,
+          points: 2,
+          totalComments: 1,
+          category: "react"
+        };
+        this.setState({ thePost: thePost });
+        break;
+      default:
+    }
+
+    const pointsAuthor =
+      this.state.thePost.id === 0 ? (
+        ""
+      ) : (
         <PointsAuthor
-          author={fakePost.author}
-          date={fakePost.date}
-          points={fakePost.points}
+          author={this.state.thePost.author}
+          timestamp={this.state.thePost.timestamp}
+          points={this.state.thePost.points}
         />
+      );
 
-        <textarea
-          rows="10"
-          value={fakePost.body}
-          type="text"
-          placeholder="Post content"
-          className="form-control inputfield"
-          aria-label="body"
-        />
+    return (
+      <div className="card">
+        <div className="card-body">
+          <div className="card-body-form-category">
+            Category{" "}
+            <CategoriesSelect
+              value={this.state.thePost.category}
+              onChange={event =>
+                this.updatePost("category", event.target.value)}
+            />
+          </div>
+          <h4 className="card-title">
+            <input
+              autoFocus
+              value={this.state.thePost.title}
+              type="text"
+              placeholder="Post title"
+              className="form-control inputfield"
+              aria-label="title"
+              onChange={event => this.updatePost("title", event.target.value)}
+            />
+          </h4>
 
-        <button type="button" className="btn btn-primary">
-          Save
-        </button>
+          {pointsAuthor}
+
+          <textarea
+            rows="10"
+            value={this.state.thePost.body}
+            type="text"
+            placeholder="Post content"
+            className="form-control inputfield"
+            aria-label="body"
+            onChange={event => this.updatePost("body", event.target.value)}
+          />
+
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => this.save()}
+          >
+            Save
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
-export default PostForm;
+function mapStateToProps({ user, categories }) {
+  return {
+    fullname: user.fullname,
+    categories
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    // setUserFullname: data => dispatch(setUserFullname({ fullname: data }))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

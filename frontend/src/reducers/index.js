@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { SET_USER_FULLNAME } from "../actions";
+import { SET_USER_FULLNAME, RESET_CATEGORIES } from "../actions";
 
 function user(state = initialUserState, action) {
   switch (action.type) {
@@ -15,10 +15,26 @@ function user(state = initialUserState, action) {
   }
 }
 
+function categories(state = initialCategoriesState, action) {
+  switch (action.type) {
+    case RESET_CATEGORIES:
+      const { categories } = action;
+      return categories;
+    default:
+      return state;
+  }
+}
+
 const initialUserState = {
   fullname: "Anonymous"
 };
 
+const initialCategoriesState = {
+  loading: { path: "loading", name: "Loading categories..." },
+  waiting: { path: "redux", name: "Thank you for waiting :)" }
+};
+
 export default combineReducers({
-  user
+  user,
+  categories
 });

@@ -19,7 +19,7 @@ const Comment = ({ commentId }) => {
         <PointsAuthor
           author="Jerome Mouneyrac"
           points="3"
-          date="2 seconds ago"
+          timestamp="2 seconds ago"
         />
         <p className="card-text">This is the comment body.</p>
       </div>
