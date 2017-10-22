@@ -5,7 +5,7 @@ import "../styles/bootstrap.min.css";
 import Crumbtrail from "./Crumbtrail";
 import PostForm from "./PostForm";
 
-const EditPost = ({ match }) => {
+const EditPost = ({ match, history }) => {
   let pageTitle = "Add";
   if (match.params.postId) {
     pageTitle = "Edit";
@@ -14,7 +14,7 @@ const EditPost = ({ match }) => {
     <div className="container">
       <Crumbtrail pageTitle={pageTitle} />
 
-      <PostForm postId={match.params.postId} />
+      <PostForm history={history} postId={match.params.postId} />
     </div>
   );
 };

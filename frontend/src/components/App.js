@@ -15,7 +15,7 @@ class App extends Component<Props> {
     return (
       <div className="app">
         <Route exact path="/" render={() => <Home />} />
-        <Route path="/add" component={EditPost} />
+        <Route path="/add" render={props => <EditPost {...props} />} />
         <Route path="/edit/:postId" component={EditPost} />
         <Route path="/post/:postId" component={Post} />
       </div>

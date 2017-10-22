@@ -11,7 +11,7 @@ import { addPost } from "../utils/api";
 class PostForm extends Component {
   state = {
     thePost: {
-      id: 8,
+      id: 0,
       title: "",
       body: "",
       author: this.props.fullname,
@@ -23,10 +23,10 @@ class PostForm extends Component {
 
   componentDidUpdate() {
     // Adding a post: update the Post default category
-    // when the categories have changed (i.e. they got updated by thunk)
+    // when the categories have been retrieved.
     if (
-      this.state.thePost.id === 8 &&
-      this.state.thePost.category !== Object.keys(this.props.categories)[0]
+      this.state.thePost.id === 0 &&
+      this.state.thePost.category === "loading"
     ) {
       this.updatePost("category", Object.keys(this.props.categories)[0]);
     }
@@ -40,14 +40,19 @@ class PostForm extends Component {
   }
 
   save() {
-    console.log("in save");
-    addPost(this.state.thePost);
+    let newPost;
+    if (this.state.thePost.id === 0) {
+      newPost = Object.assign(this.state.thePost, {
+        id: moment().unix()
+      });
+    }
+    addPost(newPost);
+    this.props.history.push("/");
   }
 
   render() {
     const { postId } = this.props;
 
-    console.log(this.state.thePost);
     let thePost;
     switch (postId) {
       case "1":
@@ -144,10 +149,4 @@ function mapStateToProps({ user, categories }) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    // setUserFullname: data => dispatch(setUserFullname({ fullname: data }))
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
+export default connect(mapStateToProps)(PostForm);
