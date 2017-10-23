@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
-// import CategoriesSelect from "./CategoriesSelect";
+import CategoriesSelect from "./CategoriesSelect";
 import { setUserFullname } from "../actions";
 import { connect } from "react-redux";
 
@@ -23,7 +23,7 @@ class SortFilterBar extends Component {
             onChange={data => setUserFullname(data.target.value)}
           />
         </div>
-        {/* <div className="form-group col-md-2">
+        <div className="form-group col-md-2">
           <label className="col-form-label">Sort by</label>
           <select id="inputState" className="form-control">
             <option>Points</option>
@@ -33,7 +33,7 @@ class SortFilterBar extends Component {
         <div className="form-group col-md-4">
           <label className="col-form-label">Filter by category</label>
           <CategoriesSelect all="1" catdefault="all" />
-        </div> */}
+        </div>
       </div>
     );
   }

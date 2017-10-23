@@ -4,11 +4,11 @@ import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
-const Comments = ({ postId, totalComments }) => {
+const Comments = ({ postId, commentCount }) => {
   const postUrl = `/post/${postId}`;
   return (
     <Link className="card-link" to={postUrl}>
-      Comments ({totalComments})
+      Comments ({commentCount})
     </Link>
   );
 };

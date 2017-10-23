@@ -8,42 +8,24 @@ import CommentList from "./CommentList";
 import EditBadge from "./EditBadge";
 import DeleteBadge from "./DeleteBadge";
 import PointsAuthor from "./PointsAuthor";
-import moment from "moment";
 
-const PostCard = ({ postId, showComments }) => {
-  const postLink = `/post/${postId}`;
-  let fakePost;
-  switch (postId) {
-    case "1":
-      fakePost = {
-        title: "This is my first post",
-        body: "This is the post body.",
-        author: "Jerome Mouneyrac",
-        date: moment.unix(1506510573).fromNow(),
-        points: 9,
-        totalComments: 2,
-        category: "redux"
-      };
-      break;
-    case "2":
-      fakePost = {
-        title: "This is the Anonymous post",
-        body: "This is the anonymous post body.",
-        author: "Anonymous",
-        date: moment.unix(1506500000).fromNow(),
-        points: 2,
-        totalComments: 1,
-        category: "react"
-      };
-      break;
-    default:
-  }
+const PostCard = props => {
+  const {
+    showComments,
+    commentCount,
+    id,
+    title,
+    body,
+    voteScore,
+    category,
+    author,
+    timestamp
+  } = props;
+  const postLink = `/post/${id}`;
 
-  let theComments = (
-    <Comments postId={postId} totalComments={fakePost.totalComments} />
-  );
+  let theComments = <Comments postId={id} commentCount={commentCount} />;
   if (showComments) {
-    theComments = <CommentList postId={postId} />;
+    theComments = <CommentList postId={id} />;
   }
 
   return (
@@ -51,24 +33,24 @@ const PostCard = ({ postId, showComments }) => {
       <div className="card-body">
         <h4 className="card-title">
           <Link className="" to={postLink}>
-            {fakePost.title}
+            {title}
           </Link>
           &nbsp;
-          <EditBadge postId={postId} />
+          <EditBadge postId={id} />
           &nbsp;
-          <DeleteBadge postId={postId} />
+          <DeleteBadge postId={id} />
           <span className="card-subtitle mb-2 text-muted">
-            &nbsp;({fakePost.category})
+            &nbsp;({category})
           </span>
         </h4>
 
         <PointsAuthor
-          author={fakePost.author}
-          date={fakePost.date}
-          points={fakePost.points}
-          category={fakePost.category}
+          author={author}
+          timestamp={timestamp}
+          points={voteScore}
+          category={category}
         />
-        <p className="card-text">{fakePost.body}</p>
+        <p className="card-text">{body}</p>
 
         <p> {theComments} </p>
       </div>

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import { SET_USER_FULLNAME, RESET_CATEGORIES } from "../actions";
+import { SET_USER_FULLNAME, RESET_CATEGORIES, SET_POSTS } from "../actions";
 
 function user(state = initialUserState, action) {
   switch (action.type) {
@@ -25,6 +25,16 @@ function categories(state = initialCategoriesState, action) {
   }
 }
 
+function posts(state = initialPostsState, action) {
+  switch (action.type) {
+    case SET_POSTS:
+      const { posts } = action;
+      return posts;
+    default:
+      return state;
+  }
+}
+
 const initialUserState = {
   fullname: "Anonymous"
 };
@@ -34,7 +44,10 @@ const initialCategoriesState = {
   waiting: { path: "redux", name: "Thank you for waiting :)" }
 };
 
+const initialPostsState = [];
+
 export default combineReducers({
   user,
-  categories
+  categories,
+  posts
 });

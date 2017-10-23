@@ -10,6 +10,14 @@ export const fetchCategories = () =>
     headers: { Authorization: AUTHTOKEN }
   });
 
+export const fetchPosts = () =>
+  axios({
+    method: "get",
+    url: `${APIURL}/posts`,
+    data: {},
+    headers: { Authorization: AUTHTOKEN }
+  });
+
 export const addPost = data => {
   axios({
     method: "post",
