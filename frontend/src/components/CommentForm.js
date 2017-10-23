@@ -18,7 +18,7 @@ const CommentForm = ({ postId }) => {
       title: "Comment title",
       body: "Comment content",
       author: "Jerome Mouneyrac",
-      date: moment.unix(1506510573).fromNow(),
+      date: moment(1506510573).fromNow(),
       points: 9.2
     };
     fakeComment.info = `Created by ${fakeComment.author} ${fakeComment.date}`;

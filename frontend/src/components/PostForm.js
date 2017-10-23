@@ -16,7 +16,7 @@ class PostForm extends Component {
       body: "",
       author: this.props.fullname,
       points: 0,
-      timestamp: moment().unix(),
+      timestamp: moment(),
       category: Object.keys(this.props.categories)[0]
     }
   };
@@ -43,7 +43,7 @@ class PostForm extends Component {
     let newPost;
     if (this.state.thePost.id === 0) {
       newPost = Object.assign(this.state.thePost, {
-        id: moment().unix()
+        id: moment()
       });
     }
     addPost(newPost);

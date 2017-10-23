@@ -9,7 +9,7 @@ const PointsAuthor = ({ author, timestamp, points, itemtype, itemid }) => {
   return (
     <h6 className="card-subtitle mb-2 text-muted">
       <Vote /> {points} points - created by {author}{" "}
-      {moment.unix(timestamp).fromNow()}
+      {moment(timestamp).fromNow()}
     </h6>
   );
 };

@@ -1,5 +1,5 @@
 import axios from "axios";
-export const AUTHTOKEN = "whatever-you-want";
+export const AUTHTOKEN = "whatever-you-want-2";
 export const APIURL = "http://localhost:3001";
 
 export const fetchCategories = () =>
