@@ -13,7 +13,6 @@ class PostCardList extends Component {
   }
 
   render() {
-    console.log(this.props.posts);
     const postCards = this.props.posts.map(post => (
       <PostCard key={post.id} {...post} />
     ));
@@ -21,9 +20,15 @@ class PostCardList extends Component {
   }
 }
 
-function mapStateToProps({ posts }) {
+function mapStateToProps({ posts, sorting }) {
   const postsarray = Object.keys(posts).map(key => posts[key]);
-
+  postsarray.sort(function(a, b) {
+    if (sorting === "date") {
+      return parseFloat(a.timestamp) - parseFloat(b.timestamp);
+    } else {
+      return parseFloat(b.voteScore) - parseFloat(a.voteScore);
+    }
+  });
   return {
     posts: postsarray
   };

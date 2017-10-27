@@ -1,6 +1,11 @@
 import { combineReducers } from "redux";
 
-import { SET_USER_FULLNAME, RESET_CATEGORIES, SET_POSTS } from "../actions";
+import {
+  SET_USER_FULLNAME,
+  RESET_CATEGORIES,
+  SET_POSTS,
+  SET_SORTING
+} from "../actions";
 
 function user(state = initialUserState, action) {
   switch (action.type) {
@@ -10,6 +15,16 @@ function user(state = initialUserState, action) {
         ...state,
         fullname: fullname
       };
+    default:
+      return state;
+  }
+}
+
+function sorting(state = initialSorting, action) {
+  switch (action.type) {
+    case SET_SORTING:
+      const { sorting } = action;
+      return sorting;
     default:
       return state;
   }
@@ -46,8 +61,11 @@ const initialCategoriesState = {
 
 const initialPostsState = [];
 
+const initialSorting = "points";
+
 export default combineReducers({
   user,
   categories,
-  posts
+  posts,
+  sorting
 });

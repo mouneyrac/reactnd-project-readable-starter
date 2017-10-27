@@ -4,11 +4,19 @@ import { schema, normalize } from "normalizr";
 export const SET_USER_FULLNAME = "SET_USER_FULLNAME";
 export const RESET_CATEGORIES = "RESET_CATEGORIES";
 export const SET_POSTS = "SET_POSTS";
+export const SET_SORTING = "SET_SORTING";
 
 export function setUserFullname({ fullname }) {
   return {
     type: SET_USER_FULLNAME,
     fullname
+  };
+}
+
+export function setSorting(sorting) {
+  return {
+    type: SET_SORTING,
+    sorting
   };
 }
 
@@ -46,7 +54,14 @@ export const fetchCategories = () => dispatch =>
 const post = new schema.Entity("posts", {}, { idAttribute: "id" });
 const postSchema = { posts: [post] };
 
-export const fetchPosts = () => dispatch =>
-  api.fetchPosts().then(response => {
-    dispatch(setPosts(normalize(response.data, postSchema).result));
-  });
+export const fetchPosts = (categoryId = 0) => dispatch => {
+  if (categoryId) {
+    api.fetchCategory(categoryId).then(response => {
+      dispatch(setPosts(normalize(response.data, postSchema).result));
+    });
+  } else {
+    api.fetchPosts().then(response => {
+      dispatch(setPosts(normalize(response.data, postSchema).result));
+    });
+  }
+};
