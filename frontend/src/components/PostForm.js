@@ -6,7 +6,8 @@ import moment from "moment";
 import PointsAuthor from "./PointsAuthor";
 import CategoriesSelect from "./CategoriesSelect";
 import { connect } from "react-redux";
-import { addPost } from "../utils/api";
+import * as api from "../utils/api";
+import { addPost, updatePost } from "../actions";
 
 class PostForm extends Component {
   state = {
@@ -28,32 +29,49 @@ class PostForm extends Component {
       this.state.thePost.id === 0 &&
       this.state.thePost.category === "loading"
     ) {
-      this.updatePost("category", Object.keys(this.props.categories)[0]);
+      this.updateThePost("category", Object.keys(this.props.categories)[0]);
+    }
+
+    if (this.state.thePost.id === 0 && this.props.postId) {
+      this.setState({ thePost: this.props.posts[this.props.postId] });
     }
   }
 
-  updatePost(field, value) {
+  updateThePost(field, value) {
     let newPost = Object.assign(this.state.thePost, {
       [field]: value
     });
     this.setState({ thePost: newPost });
   }
 
-  save() {
-    let newPost;
-    if (this.state.thePost.id === 0) {
-      newPost = Object.assign(this.state.thePost, {
+  save(thePost) {
+    if (thePost.id === 0) {
+      let newPost = Object.assign(thePost, {
         id: moment().valueOf()
       });
+      api.addPost(newPost);
+      this.props.addPost(newPost);
+    } else {
+      api.updatePost(thePost);
+      this.props.updatePost(thePost);
     }
-    addPost(newPost);
+
     this.props.history.push("/");
   }
 
   render() {
-    const { postId } = this.props;
+    // const { postId } = this.props;
 
-    let thePost;
+    // let thePost;
+    //
+    // if (postId) {
+    //   thePost = this.props.posts[postId];
+    // } else {
+    //   thePost = this.state.thePost;
+    // }
+    // console.log(postId);
+    // console.log(this.props);
+    // console.log(this.state.thePost);
 
     const pointsAuthor =
       this.state.thePost.id === 0 ? (
@@ -74,7 +92,7 @@ class PostForm extends Component {
             <CategoriesSelect
               value={this.state.thePost.category}
               onChange={event =>
-                this.updatePost("category", event.target.value)}
+                this.updateThePost("category", event.target.value)}
             />
           </div>
           <h4 className="card-title">
@@ -85,7 +103,8 @@ class PostForm extends Component {
               placeholder="Post title"
               className="form-control inputfield"
               aria-label="title"
-              onChange={event => this.updatePost("title", event.target.value)}
+              onChange={event =>
+                this.updateThePost("title", event.target.value)}
             />
           </h4>
 
@@ -98,13 +117,13 @@ class PostForm extends Component {
             placeholder="Post content"
             className="form-control inputfield"
             aria-label="body"
-            onChange={event => this.updatePost("body", event.target.value)}
+            onChange={event => this.updateThePost("body", event.target.value)}
           />
 
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => this.save()}
+            onClick={() => this.save(this.state.thePost)}
           >
             Save
           </button>
@@ -114,11 +133,19 @@ class PostForm extends Component {
   }
 }
 
-function mapStateToProps({ user, categories }) {
+function mapStateToProps({ user, categories, posts }) {
   return {
     fullname: user.fullname,
-    categories
+    categories,
+    posts
   };
 }
 
-export default connect(mapStateToProps)(PostForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    addPost: data => dispatch(addPost(data)),
+    updatePost: data => dispatch(updatePost(data))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

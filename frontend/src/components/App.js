@@ -7,10 +7,17 @@ import { Route } from "react-router-dom";
 import Home from "./Home";
 import EditPost from "./EditPost";
 import Post from "./Post";
+import { connect } from "react-redux";
+import { fetchPosts } from "../actions";
+import { withRouter } from "react-router-dom";
 
 type Props = {};
 
 class App extends Component<Props> {
+  componentWillMount() {
+    this.props.fetchPosts();
+  }
+
   render() {
     return (
       <div className="app">
@@ -23,4 +30,10 @@ class App extends Component<Props> {
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchPosts: () => dispatch(fetchPosts())
+  };
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(App));

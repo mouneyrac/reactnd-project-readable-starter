@@ -4,14 +4,9 @@ import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import PostCard from "./PostCard";
 import { connect } from "react-redux";
-import { fetchPosts } from "../actions";
 
 // const PostCardList = () => (
 class PostCardList extends Component {
-  componentWillMount() {
-    this.props.fetchPosts();
-  }
-
   render() {
     const postCards = this.props.posts.map(post => (
       <PostCard key={post.id} {...post} />
@@ -23,8 +18,6 @@ class PostCardList extends Component {
 function mapStateToProps({ posts, sorting }) {
   const postsarray = Object.keys(posts).map(key => posts[key]);
   postsarray.sort(function(a, b) {
-    console.log(a);
-    console.log(b);
     if (!a || !b) {
       return 0;
     }
@@ -40,10 +33,4 @@ function mapStateToProps({ posts, sorting }) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchPosts: () => dispatch(fetchPosts())
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostCardList);
+export default connect(mapStateToProps)(PostCardList);

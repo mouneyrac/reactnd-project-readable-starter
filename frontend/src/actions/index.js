@@ -5,6 +5,8 @@ export const SET_USER_FULLNAME = "SET_USER_FULLNAME";
 export const RESET_CATEGORIES = "RESET_CATEGORIES";
 export const SET_POSTS = "SET_POSTS";
 export const DELETE_POST = "DELETE_POST";
+export const ADD_POST = "ADD_POST";
+export const UPDATE_POST = "UPDATE_POST";
 export const SET_SORTING = "SET_SORTING";
 
 export function setUserFullname({ fullname }) {
@@ -39,6 +41,20 @@ export function deletePost(postId) {
   return {
     type: DELETE_POST,
     postId
+  };
+}
+
+export function addPost(post) {
+  return {
+    type: ADD_POST,
+    post
+  };
+}
+
+export function updatePost(post) {
+  return {
+    type: UPDATE_POST,
+    post
   };
 }
 

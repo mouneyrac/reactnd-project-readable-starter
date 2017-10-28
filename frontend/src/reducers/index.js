@@ -5,6 +5,8 @@ import {
   RESET_CATEGORIES,
   SET_POSTS,
   DELETE_POST,
+  ADD_POST,
+  UPDATE_POST,
   SET_SORTING
 } from "../actions";
 
@@ -44,23 +46,24 @@ function categories(state = initialCategoriesState, action) {
 }
 
 function posts(state = initialPostsState, action) {
-  console.log("POST REDUCER");
-  console.log(action);
   switch (action.type) {
     case SET_POSTS:
       const { posts } = action;
       return posts ? posts : {};
     case DELETE_POST:
       const { postId } = action;
-      console.log(DELETE_POST);
-      console.log(...state);
-      console.log({
-        ...state,
-        [postId]: null
-      });
+
       return {
         ...state,
         [postId]: null
+      };
+    case ADD_POST:
+    case UPDATE_POST:
+      const { post } = action;
+
+      return {
+        ...state,
+        [post.id]: post
       };
 
     default:

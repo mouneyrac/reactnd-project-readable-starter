@@ -35,7 +35,7 @@ export const addPost = data => {
   });
 };
 
-export const editPost = data =>
+export const updatePost = data =>
   axios({
     method: "put",
     url: `${APIURL}/posts/${data.id}`,
