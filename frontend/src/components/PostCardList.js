@@ -23,8 +23,13 @@ class PostCardList extends Component {
 function mapStateToProps({ posts, sorting }) {
   const postsarray = Object.keys(posts).map(key => posts[key]);
   postsarray.sort(function(a, b) {
+    console.log(a);
+    console.log(b);
+    if (!a || !b) {
+      return 0;
+    }
     if (sorting === "date") {
-      return parseFloat(a.timestamp) - parseFloat(b.timestamp);
+      return parseFloat(b.timestamp) - parseFloat(a.timestamp);
     } else {
       return parseFloat(b.voteScore) - parseFloat(a.voteScore);
     }

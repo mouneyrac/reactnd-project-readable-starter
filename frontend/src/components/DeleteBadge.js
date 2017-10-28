@@ -30,7 +30,6 @@ class DeleteBadge extends React.Component {
   handleSaveClicked() {
     api.deletePost(this.props.postId).then(response => {
       this.props.deletePost(this.props.postId);
-      this.setState({ showModal: false });
     });
   }
 

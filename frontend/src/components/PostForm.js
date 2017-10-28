@@ -16,7 +16,7 @@ class PostForm extends Component {
       body: "",
       author: this.props.fullname,
       points: 0,
-      timestamp: moment(),
+      timestamp: moment().valueOf(),
       category: Object.keys(this.props.categories)[0]
     }
   };
@@ -43,7 +43,7 @@ class PostForm extends Component {
     let newPost;
     if (this.state.thePost.id === 0) {
       newPost = Object.assign(this.state.thePost, {
-        id: moment()
+        id: moment().valueOf()
       });
     }
     addPost(newPost);
@@ -54,34 +54,6 @@ class PostForm extends Component {
     const { postId } = this.props;
 
     let thePost;
-    switch (postId) {
-      case "1":
-        thePost = {
-          id: 1,
-          title: "Post title",
-          body: "Post content",
-          author: "Jerome Mouneyrac",
-          timestamp: 1506510573,
-          points: 9.2,
-          category: "redux"
-        };
-        this.setState({ thePost: thePost });
-        break;
-      case "2":
-        thePost = {
-          id: 2,
-          title: "This is the Anonymous post",
-          body: "This is the anonymous post body.",
-          author: "Anonymous",
-          timestamp: 1506500000,
-          points: 2,
-          totalComments: 1,
-          category: "react"
-        };
-        this.setState({ thePost: thePost });
-        break;
-      default:
-    }
 
     const pointsAuthor =
       this.state.thePost.id === 0 ? (
