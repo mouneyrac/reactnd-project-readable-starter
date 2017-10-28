@@ -29,8 +29,9 @@ function mapStateToProps({ posts, sorting }) {
       return parseFloat(b.voteScore) - parseFloat(a.voteScore);
     }
   });
+
   return {
-    posts: postsarray
+    posts: postsarray.filter(post => post)
   };
 }
 

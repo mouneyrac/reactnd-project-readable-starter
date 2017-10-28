@@ -4,6 +4,7 @@ import { schema, normalize } from "normalizr";
 export const SET_USER_FULLNAME = "SET_USER_FULLNAME";
 export const RESET_CATEGORIES = "RESET_CATEGORIES";
 export const SET_POSTS = "SET_POSTS";
+export const DELETE_POST = "DELETE_POST";
 export const SET_SORTING = "SET_SORTING";
 
 export function setUserFullname({ fullname }) {
@@ -34,6 +35,13 @@ export function setPosts(posts) {
   };
 }
 
+export function deletePost(postId) {
+  return {
+    type: DELETE_POST,
+    postId
+  };
+}
+
 // Here we create the normalizr schemas.  These define the entity names
 // (entities.posts, for example) and how we get the ID for each entity.
 //
@@ -61,7 +69,9 @@ export const fetchPosts = (categoryId = 0) => dispatch => {
     });
   } else {
     api.fetchPosts().then(response => {
-      dispatch(setPosts(normalize(response.data, postSchema).result));
+      dispatch(
+        setPosts(normalize({ posts: response.data }, postSchema).entities.posts)
+      );
     });
   }
 };

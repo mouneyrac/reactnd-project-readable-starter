@@ -42,3 +42,11 @@ export const editPost = data =>
     data: data,
     headers: { Authorization: AUTHTOKEN }
   });
+
+export const deletePost = data =>
+  axios({
+    method: "delete",
+    url: `${APIURL}/posts/${data}`,
+    data: data,
+    headers: { Authorization: AUTHTOKEN }
+  });

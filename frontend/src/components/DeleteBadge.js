@@ -2,6 +2,9 @@
 import React from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
+import * as api from "../utils/api";
+import { deletePost } from "../actions";
+import { connect } from "react-redux";
 
 import ReactModal from "react-modal";
 
@@ -22,6 +25,13 @@ class DeleteBadge extends React.Component {
 
   handleCloseModal() {
     this.setState({ showModal: false });
+  }
+
+  handleSaveClicked() {
+    api.deletePost(this.props.postId).then(response => {
+      this.props.deletePost(this.props.postId);
+      this.setState({ showModal: false });
+    });
   }
 
   render() {
@@ -66,7 +76,7 @@ class DeleteBadge extends React.Component {
               <button
                 type="button"
                 className="btn btn-danger"
-                onClick={this.handleSaveClicked}
+                onClick={() => this.handleSaveClicked()}
               >
                 Delete
               </button>
@@ -78,4 +88,10 @@ class DeleteBadge extends React.Component {
   }
 }
 
-export default DeleteBadge;
+function mapDispatchToProps(dispatch) {
+  return {
+    deletePost: data => dispatch(deletePost(data))
+  };
+}
+
+export default connect(null, mapDispatchToProps)(DeleteBadge);
