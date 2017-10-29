@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import * as api from "../utils/api";
-import { deletePost, deleteComment } from "../actions";
+import { deletePost, deleteComment, updatePost } from "../actions";
 import { connect } from "react-redux";
 
 import ReactModal from "react-modal";
@@ -36,6 +36,12 @@ class DeleteBadge extends React.Component {
     } else if (this.props.commentId) {
       api.deleteComment(this.props.commentId).then(response => {
         this.props.deleteComment(this.props.commentId);
+
+        // update the post too.
+        let newPost = Object.assign(this.props.posts[this.props.parentId], {
+          commentCount: this.props.posts[this.props.parentId].commentCount - 1
+        });
+        this.props.updatePost(newPost);
       });
     }
   }
@@ -94,11 +100,18 @@ class DeleteBadge extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapStateToProps({ posts }) {
   return {
-    deletePost: data => dispatch(deletePost(data)),
-    deleteComment: data => dispatch(deleteComment(data))
+    posts
   };
 }
 
-export default connect(null, mapDispatchToProps)(DeleteBadge);
+function mapDispatchToProps(dispatch) {
+  return {
+    deletePost: data => dispatch(deletePost(data)),
+    deleteComment: data => dispatch(deleteComment(data)),
+    updatePost: data => dispatch(updatePost(data))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteBadge);

@@ -15,7 +15,7 @@ const Comment = ({ comment }) => {
         <h6 className="card-title">
           <EditCommentBadge comment={comment} />
           &nbsp;
-          <DeleteBadge commentId={comment.id} />
+          <DeleteBadge commentId={comment.id} parentId={comment.parentId} />
         </h6>
       </div>
     </div>

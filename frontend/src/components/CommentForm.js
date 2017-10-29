@@ -4,7 +4,7 @@ import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import moment from "moment";
 import * as api from "../utils/api";
-import { addComment, updateComment } from "../actions";
+import { addComment, updateComment, updatePost } from "../actions";
 import { connect } from "react-redux";
 
 class CommentForm extends Component {
@@ -39,6 +39,12 @@ class CommentForm extends Component {
       });
       api.addComment(newComment);
       this.props.addComment(newComment);
+
+      // also update the post.
+      let newPost = Object.assign(this.props.posts[theComment.parentId], {
+        commentCount: this.props.posts[theComment.parentId].commentCount + 1
+      });
+      this.props.updatePost(newPost);
     } else {
       api.updateComment(theComment);
       this.props.updateComment(theComment);
@@ -80,17 +86,19 @@ class CommentForm extends Component {
   }
 }
 
-function mapStateToProps({ comments, user }) {
+function mapStateToProps({ comments, user, posts }) {
   return {
     fullname: user.fullname,
-    comments
+    comments,
+    posts
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     addComment: data => dispatch(addComment(data)),
-    updateComment: data => dispatch(updateComment(data))
+    updateComment: data => dispatch(updateComment(data)),
+    updatePost: data => dispatch(updatePost(data))
   };
 }
 
