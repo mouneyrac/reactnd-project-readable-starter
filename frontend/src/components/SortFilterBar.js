@@ -6,8 +6,6 @@ import CategoriesSelect from "./CategoriesSelect";
 import { setUserFullname, fetchPosts, setSorting } from "../actions";
 import { connect } from "react-redux";
 
-// TODO - DO NOT FORGET TO ADD BACK THE FILTERS (POINTS AND CATEGORY)
-
 class SortFilterBar extends Component {
   changeCategory(category) {
     const { fetchPosts } = this.props;
