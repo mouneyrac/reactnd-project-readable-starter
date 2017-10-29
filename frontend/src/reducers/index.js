@@ -7,7 +7,11 @@ import {
   DELETE_POST,
   ADD_POST,
   UPDATE_POST,
-  SET_SORTING
+  SET_SORTING,
+  SET_POST_COMMENTS,
+  DELETE_COMMENT,
+  ADD_COMMENT,
+  UPDATE_COMMENT
 } from "../actions";
 
 function user(state = initialUserState, action) {
@@ -69,6 +73,32 @@ function posts(state = initialPostsState, action) {
   }
 }
 
+function comments(state = initialCommentsState, action) {
+  switch (action.type) {
+    case SET_POST_COMMENTS:
+      const { comments } = action;
+      return comments ? { ...state, ...comments } : {};
+    case DELETE_COMMENT:
+      const { commentId } = action;
+
+      return {
+        ...state,
+        [commentId]: null
+      };
+    case ADD_COMMENT:
+    case UPDATE_COMMENT:
+      const { comment } = action;
+
+      return {
+        ...state,
+        [comment.id]: comment
+      };
+
+    default:
+      return state;
+  }
+}
+
 const initialUserState = {
   fullname: "Anonymous"
 };
@@ -80,11 +110,14 @@ const initialCategoriesState = {
 
 const initialPostsState = [];
 
+const initialCommentsState = [];
+
 const initialSorting = "points";
 
 export default combineReducers({
   user,
   categories,
   posts,
-  sorting
+  sorting,
+  comments
 });

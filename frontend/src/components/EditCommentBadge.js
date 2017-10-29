@@ -53,7 +53,10 @@ class EditCommentBadge extends Component {
               <h4 className="modal-title">Edit Comment</h4>
             </div>
             <div className="modal-body">
-              <CommentForm />
+              <CommentForm
+                comment={this.props.comment}
+                closeModal={this.handleCloseModal}
+              />
             </div>
           </div>
         </ReactModal>

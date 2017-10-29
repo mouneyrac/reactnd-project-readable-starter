@@ -9,7 +9,7 @@ import EditBadge from "./EditBadge";
 import DeleteBadge from "./DeleteBadge";
 import PointsAuthor from "./PointsAuthor";
 
-const PostCard = ({ post, showComments }) => {
+const PostCard = ({ post, showComments, history }) => {
   const { id, title, body, category, commentCount } = post;
   const postLink = `/post/${id}`;
 
@@ -28,7 +28,7 @@ const PostCard = ({ post, showComments }) => {
           &nbsp;
           <EditBadge postId={id} />
           &nbsp;
-          <DeleteBadge postId={id} />
+          <DeleteBadge postId={id} history={history} />
           <span className="card-subtitle mb-2 text-muted">
             &nbsp;({category})
           </span>

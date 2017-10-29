@@ -18,6 +18,14 @@ export const fetchPosts = () =>
     headers: { Authorization: AUTHTOKEN }
   });
 
+export const fetchPostComments = postId =>
+  axios({
+    method: "get",
+    url: `${APIURL}/posts/${postId}/comments`,
+    data: {},
+    headers: { Authorization: AUTHTOKEN }
+  });
+
 export const fetchCategory = categoryId =>
   axios({
     method: "get",
@@ -47,6 +55,31 @@ export const deletePost = data =>
   axios({
     method: "delete",
     url: `${APIURL}/posts/${data}`,
+    data: data,
+    headers: { Authorization: AUTHTOKEN }
+  });
+
+export const deleteComment = data =>
+  axios({
+    method: "delete",
+    url: `${APIURL}/comments/${data}`,
+    data: data,
+    headers: { Authorization: AUTHTOKEN }
+  });
+
+export const addComment = data => {
+  axios({
+    method: "post",
+    url: `${APIURL}/comments`,
+    data: data,
+    headers: { Authorization: AUTHTOKEN }
+  });
+};
+
+export const updateComment = data =>
+  axios({
+    method: "put",
+    url: `${APIURL}/comments/${data.id}`,
     data: data,
     headers: { Authorization: AUTHTOKEN }
   });

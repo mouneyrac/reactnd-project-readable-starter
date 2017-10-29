@@ -5,11 +5,20 @@ import "../styles/bootstrap.min.css";
 import PostCard from "./PostCard";
 import Crumbtrail from "./Crumbtrail";
 import { connect } from "react-redux";
+import { fetchPostComments } from "../actions";
 
 // const Post = ({ match }) => {
 class Post extends Component {
+  componentDidMount() {
+    const { match } = this.props;
+    console.log(match.params.postId);
+    if (match.params.postId) {
+      this.props.fetchPostComments(match.params.postId);
+    }
+  }
+
   render() {
-    const { match, posts } = this.props;
+    const { match, posts, history } = this.props;
     let postId;
     if (match.params.postId) {
       postId = match.params.postId;
@@ -18,7 +27,12 @@ class Post extends Component {
     const post = posts[postId];
 
     const postCard = posts[postId] ? (
-      <PostCard postId={postId} showComments="1" post={post} />
+      <PostCard
+        postId={postId}
+        showComments="1"
+        post={post}
+        history={history}
+      />
     ) : (
       <div className="container" />
     );
@@ -39,4 +53,10 @@ function mapStateToProps({ posts }) {
   };
 }
 
-export default connect(mapStateToProps)(Post);
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchPostComments: data => dispatch(fetchPostComments(data))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);

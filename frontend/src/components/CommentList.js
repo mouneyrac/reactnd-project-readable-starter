@@ -1,36 +1,42 @@
 //@flow
-import React from "react";
+import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 
 import Comment from "./Comment";
 import CommentForm from "./CommentForm";
+import { connect } from "react-redux";
 
-const CommentList = ({ postId }) => {
-  let comments = (
-    <div>
-      <Comment commentId="3" />
-    </div>
-  );
+class CommentList extends Component {
+  render() {
+    const { postId } = this.props;
 
-  switch (postId) {
-    case "1":
-      comments = (
-        <div>
-          <Comment commentId="1" />
-          <Comment commentId="2" />
-        </div>
-      );
-      break;
-    default:
+    const comments = this.props.comments
+      .filter(comment => comment.parentId === postId)
+      .map(comment => <Comment key={comment.id} comment={comment} />);
+
+    return (
+      <div className="">
+        {comments}
+        <CommentForm parentId={postId} />
+      </div>
+    );
   }
+}
 
-  return (
-    <div className="">
-      {comments}
-      <CommentForm />
-    </div>
-  );
-};
+function mapStateToProps({ comments }) {
+  const commentsarray = Object.keys(comments).map(key => comments[key]);
+  commentsarray.sort(function(a, b) {
+    if (!a || !b) {
+      return 0;
+    }
 
-export default CommentList;
+    return parseFloat(b.timestamp) - parseFloat(a.timestamp);
+  });
+
+  return {
+    comments: commentsarray.filter(comment => comment)
+  };
+}
+
+export default connect(mapStateToProps)(CommentList);

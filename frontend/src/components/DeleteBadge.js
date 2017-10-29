@@ -3,7 +3,7 @@ import React from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import * as api from "../utils/api";
-import { deletePost } from "../actions";
+import { deletePost, deleteComment } from "../actions";
 import { connect } from "react-redux";
 
 import ReactModal from "react-modal";
@@ -28,9 +28,16 @@ class DeleteBadge extends React.Component {
   }
 
   handleSaveClicked() {
-    api.deletePost(this.props.postId).then(response => {
-      this.props.deletePost(this.props.postId);
-    });
+    if (this.props.postId) {
+      api.deletePost(this.props.postId).then(response => {
+        this.props.deletePost(this.props.postId);
+        this.props.history.push("/");
+      });
+    } else if (this.props.commentId) {
+      api.deleteComment(this.props.commentId).then(response => {
+        this.props.deleteComment(this.props.commentId);
+      });
+    }
   }
 
   render() {
@@ -89,7 +96,8 @@ class DeleteBadge extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deletePost: data => dispatch(deletePost(data))
+    deletePost: data => dispatch(deletePost(data)),
+    deleteComment: data => dispatch(deleteComment(data))
   };
 }
 

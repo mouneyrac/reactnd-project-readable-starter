@@ -8,6 +8,10 @@ export const DELETE_POST = "DELETE_POST";
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const SET_SORTING = "SET_SORTING";
+export const SET_POST_COMMENTS = "SET_POST_COMMENTS";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const ADD_COMMENT = "ADD_COMMENT";
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
 
 export function setUserFullname({ fullname }) {
   return {
@@ -37,10 +41,24 @@ export function setPosts(posts) {
   };
 }
 
+export function setPostComments(comments) {
+  return {
+    type: SET_POST_COMMENTS,
+    comments
+  };
+}
+
 export function deletePost(postId) {
   return {
     type: DELETE_POST,
     postId
+  };
+}
+
+export function deleteComment(commentId) {
+  return {
+    type: DELETE_COMMENT,
+    commentId
   };
 }
 
@@ -55,6 +73,20 @@ export function updatePost(post) {
   return {
     type: UPDATE_POST,
     post
+  };
+}
+
+export function addComment(comment) {
+  return {
+    type: ADD_COMMENT,
+    comment
+  };
+}
+
+export function updateComment(comment) {
+  return {
+    type: UPDATE_COMMENT,
+    comment
   };
 }
 
@@ -90,4 +122,18 @@ export const fetchPosts = (categoryId = 0) => dispatch => {
       );
     });
   }
+};
+
+const comment = new schema.Entity("comments", {}, { idAttribute: "id" });
+const commentSchema = { comments: [comment] };
+
+export const fetchPostComments = postId => dispatch => {
+  api.fetchPostComments(postId).then(response => {
+    console.log(response);
+    dispatch(
+      setPostComments(
+        normalize({ comments: response.data }, commentSchema).entities.comments
+      )
+    );
+  });
 };

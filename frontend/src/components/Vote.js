@@ -16,13 +16,11 @@ class Vote extends Component {
     const updatedPost = Object.assign(this.props.item, {
       voteScore: newScore
     });
-    console.log(updatedPost);
     api.updatePost(updatedPost);
     this.props.updatePost(updatedPost);
   }
 
   render() {
-    console.log(this.props);
     return (
       <span>
         <a className="votebutton" onClick={() => this.updatePost("plus")}>
