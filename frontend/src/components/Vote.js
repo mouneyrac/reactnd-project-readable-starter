@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
-import { updatePost } from "../actions";
+import { updatePost, updateComment } from "../actions";
 import { connect } from "react-redux";
 import * as api from "../utils/api";
 
@@ -13,11 +13,16 @@ class Vote extends Component {
         ? this.props.item.voteScore + 1
         : this.props.item.voteScore - 1;
 
-    const updatedPost = Object.assign(this.props.item, {
+    const updatedItem = Object.assign(this.props.item, {
       voteScore: newScore
     });
-    api.updatePost(updatedPost);
-    this.props.updatePost(updatedPost);
+    if (this.props.itemType === "post") {
+      api.updatePost(updatedItem);
+      this.props.updatePost(updatedItem);
+    } else if (this.props.itemType === "comment") {
+      api.updateComment(updatedItem);
+      this.props.updateComment(updatedItem);
+    }
   }
 
   render() {
@@ -37,7 +42,8 @@ class Vote extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    updatePost: data => dispatch(updatePost(data))
+    updatePost: data => dispatch(updatePost(data)),
+    updateComment: data => dispatch(updateComment(data))
   };
 }
 

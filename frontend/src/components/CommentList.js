@@ -31,7 +31,7 @@ function mapStateToProps({ comments }) {
       return 0;
     }
 
-    return parseFloat(b.timestamp) - parseFloat(a.timestamp);
+    return parseFloat(a.timestamp) - parseFloat(b.timestamp);
   });
 
   return {

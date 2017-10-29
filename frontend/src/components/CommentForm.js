@@ -42,7 +42,9 @@ class CommentForm extends Component {
     } else {
       api.updateComment(theComment);
       this.props.updateComment(theComment);
-      this.props.closeModal();
+      if (this.props.closeModal) {
+        this.props.closeModal();
+      }
     }
   }
 
