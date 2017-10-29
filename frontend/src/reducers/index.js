@@ -14,8 +14,6 @@ function user(state = initialUserState, action) {
   switch (action.type) {
     case SET_USER_FULLNAME:
       const { fullname } = action;
-      console.log("SET FULLNAME");
-      console.log(state);
       return {
         ...state,
         fullname: fullname

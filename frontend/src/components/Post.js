@@ -17,11 +17,17 @@ class Post extends Component {
 
     const post = posts[postId];
 
+    const postCard = posts[postId] ? (
+      <PostCard postId={postId} showComments="1" post={post} />
+    ) : (
+      <div className="container" />
+    );
+
     return (
       <div className="container">
         <Crumbtrail pageTitle="View post" />
 
-        <PostCard postId={postId} showComments="1" {...post} />
+        {postCard}
       </div>
     );
   }

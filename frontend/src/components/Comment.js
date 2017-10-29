@@ -17,9 +17,12 @@ const Comment = ({ commentId }) => {
           <DeleteBadge commentId={commentId} />
         </h6>
         <PointsAuthor
-          author="Jerome Mouneyrac"
-          points="3"
-          timestamp="2 seconds ago"
+          item={{
+            author: "EDIT ME Jerome Mouneyrac",
+            voteScore: "3",
+            timestamp: "144433288874"
+          }}
+          itemType="comment"
         />
         <p className="card-text">This is the comment body.</p>
       </div>

@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 class PostCardList extends Component {
   render() {
     const postCards = this.props.posts.map(post => (
-      <PostCard key={post.id} {...post} />
+      <PostCard key={post.id} post={post} />
     ));
     return <div className="">{postCards}</div>;
   }

@@ -16,9 +16,10 @@ class PostForm extends Component {
       title: "",
       body: "",
       author: this.props.fullname,
-      points: 0,
+      voteScore: 1,
       timestamp: moment().valueOf(),
-      category: Object.keys(this.props.categories)[0]
+      category: Object.keys(this.props.categories)[0],
+      commentCount: 0
     }
   };
 
@@ -60,28 +61,11 @@ class PostForm extends Component {
   }
 
   render() {
-    // const { postId } = this.props;
-
-    // let thePost;
-    //
-    // if (postId) {
-    //   thePost = this.props.posts[postId];
-    // } else {
-    //   thePost = this.state.thePost;
-    // }
-    // console.log(postId);
-    // console.log(this.props);
-    // console.log(this.state.thePost);
-
     const pointsAuthor =
       this.state.thePost.id === 0 ? (
         ""
       ) : (
-        <PointsAuthor
-          author={this.state.thePost.author}
-          timestamp={this.state.thePost.timestamp}
-          points={this.state.thePost.points}
-        />
+        <PointsAuthor item={this.state.thePost} itemType="post" />
       );
 
     return (

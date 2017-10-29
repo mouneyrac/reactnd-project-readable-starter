@@ -9,18 +9,8 @@ import EditBadge from "./EditBadge";
 import DeleteBadge from "./DeleteBadge";
 import PointsAuthor from "./PointsAuthor";
 
-const PostCard = props => {
-  const {
-    showComments,
-    commentCount,
-    id,
-    title,
-    body,
-    voteScore,
-    category,
-    author,
-    timestamp
-  } = props;
+const PostCard = ({ post, showComments }) => {
+  const { id, title, body, category, commentCount } = post;
   const postLink = `/post/${id}`;
 
   let theComments = <Comments postId={id} commentCount={commentCount} />;
@@ -44,15 +34,10 @@ const PostCard = props => {
           </span>
         </h4>
 
-        <PointsAuthor
-          author={author}
-          timestamp={timestamp}
-          points={voteScore}
-          category={category}
-        />
-        <p className="card-text">{body}</p>
+        <PointsAuthor item={post} itemType="post" />
+        <span className="card-text">{body}</span>
 
-        <p> {theComments} </p>
+        <span> {theComments} </span>
       </div>
     </div>
   );

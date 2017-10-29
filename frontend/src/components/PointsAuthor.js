@@ -5,11 +5,11 @@ import "../styles/bootstrap.min.css";
 import Vote from "./Vote";
 import moment from "moment";
 
-const PointsAuthor = ({ author, timestamp, points, itemtype, itemid }) => {
+const PointsAuthor = ({ itemType, item }) => {
   return (
     <h6 className="card-subtitle mb-2 text-muted">
-      <Vote /> {points} points - created by {author}{" "}
-      {moment(timestamp).fromNow()}
+      <Vote {...{ itemType, item }} /> {item.voteScore} points - created by{" "}
+      {item.author} {moment(item.timestamp).fromNow()}
     </h6>
   );
 };

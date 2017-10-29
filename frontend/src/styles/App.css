@@ -45,3 +45,8 @@
 .close {
   cursor: pointer;
 }
+
+.votebutton {
+  cursor: pointer;
+  color: blue;
+}
