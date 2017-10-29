@@ -31,7 +31,9 @@ class DeleteBadge extends React.Component {
     if (this.props.postId) {
       api.deletePost(this.props.postId).then(response => {
         this.props.deletePost(this.props.postId);
-        this.props.history.push("/");
+        if (this.props.history) {
+          this.props.history.push("/");
+        }
       });
     } else if (this.props.commentId) {
       api.deleteComment(this.props.commentId).then(response => {
