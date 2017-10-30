@@ -1,21 +1,35 @@
 //@flow
-import React from "react";
+import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
 import PostCardList from "./PostCardList";
 import HeroBanner from "./HeroBanner";
 import SortFilterBar from "./SortFilterBar";
+import { connect } from "react-redux";
+import { fetchPosts } from "../actions";
 
-const Home = props => {
-  return (
-    <div className="container">
-      <HeroBanner />
+class Home extends Component<Props> {
+  componentWillMount() {
+    this.props.fetchPosts();
+  }
 
-      <SortFilterBar history={props.history} match={props.match} />
+  render() {
+    return (
+      <div className="container">
+        <HeroBanner />
 
-      <PostCardList />
-    </div>
-  );
-};
+        <SortFilterBar history={this.props.history} match={this.props.match} />
 
-export default Home;
+        <PostCardList />
+      </div>
+    );
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchPosts: () => dispatch(fetchPosts())
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Home);
