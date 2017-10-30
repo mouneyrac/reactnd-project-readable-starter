@@ -11,8 +11,10 @@ class SortFilterBar extends Component {
     const { fetchPosts } = this.props;
     if (category === "all") {
       fetchPosts();
+      this.props.history.push(`/`);
     } else {
       fetchPosts(category);
+      this.props.history.push(`/${category}`);
     }
   }
 
@@ -22,6 +24,12 @@ class SortFilterBar extends Component {
 
   render() {
     const { setUserFullname, fullname, sorting } = this.props;
+
+    let category = "all";
+    if (this.props.match.params.categoryId) {
+      category = this.props.match.params.categoryId;
+    }
+
     return (
       <div className="form-row">
         <div className="form-group col-md-6">
@@ -54,7 +62,7 @@ class SortFilterBar extends Component {
           <label className="col-form-label">Filter by category</label>
           <CategoriesSelect
             all="1"
-            catdefault="all"
+            value={category}
             onChange={event => this.changeCategory(event.target.value)}
           />
         </div>

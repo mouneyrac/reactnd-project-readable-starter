@@ -6,14 +6,16 @@ import PostCardList from "./PostCardList";
 import HeroBanner from "./HeroBanner";
 import SortFilterBar from "./SortFilterBar";
 
-const Home = () => (
-  <div className="container">
-    <HeroBanner />
+const Home = props => {
+  return (
+    <div className="container">
+      <HeroBanner />
 
-    <SortFilterBar />
+      <SortFilterBar history={props.history} match={props.match} />
 
-    <PostCardList />
-  </div>
-);
+      <PostCardList />
+    </div>
+  );
+};
 
 export default Home;

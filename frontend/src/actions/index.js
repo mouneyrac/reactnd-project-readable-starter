@@ -113,7 +113,9 @@ const postSchema = { posts: [post] };
 export const fetchPosts = (categoryId = 0) => dispatch => {
   if (categoryId) {
     api.fetchCategory(categoryId).then(response => {
-      dispatch(setPosts(normalize(response.data, postSchema).result));
+      dispatch(
+        setPosts(normalize({ posts: response.data }, postSchema).entities.posts)
+      );
     });
   } else {
     api.fetchPosts().then(response => {

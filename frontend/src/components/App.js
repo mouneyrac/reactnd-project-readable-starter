@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import "../styles/App.css";
 import "../styles/bootstrap.min.css";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Home from "./Home";
 import EditPost from "./EditPost";
 import Post from "./Post";
@@ -21,10 +21,13 @@ class App extends Component<Props> {
   render() {
     return (
       <div className="app">
-        <Route exact path="/" render={() => <Home />} />
-        <Route path="/add" render={props => <EditPost {...props} />} />
-        <Route path="/edit/:postId" component={EditPost} />
-        <Route path="/post/:postId" component={Post} />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/add" component={EditPost} />
+          <Route path="/edit/:postId" component={EditPost} />
+          <Route path="/post/:postId" component={Post} />
+          <Route path="/:categoryId" component={Home} />
+        </Switch>
       </div>
     );
   }
