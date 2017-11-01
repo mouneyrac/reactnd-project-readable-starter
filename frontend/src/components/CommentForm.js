@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 class CommentForm extends Component {
   state = {
     theComment: {
-      id: 0,
+      id: "",
       body: "",
       author: this.props.fullname,
       voteScore: 1,
@@ -20,7 +20,7 @@ class CommentForm extends Component {
   };
 
   componentWillMount() {
-    if (this.props.comment && this.props.comment.id) {
+    if (this.props.comment && this.props.comment.id !== "") {
       this.setState({ theComment: this.props.comment });
     }
   }
@@ -33,10 +33,12 @@ class CommentForm extends Component {
   }
 
   save(theComment) {
-    if (theComment.id === 0) {
+    if (theComment.id === "") {
+      const newid = moment().valueOf();
       let newComment = Object.assign(theComment, {
-        id: moment().valueOf()
+        id: `${newid}`
       });
+
       api.addComment(newComment);
       this.props.addComment(newComment);
 
@@ -55,9 +57,8 @@ class CommentForm extends Component {
   }
 
   render() {
-    const buttonTitle = this.state.theComment.id
-      ? "Update comment"
-      : "Add comment";
+    const buttonTitle =
+      this.state.theComment.id !== "" ? "Update comment" : "Add comment";
 
     return (
       <div className="card">

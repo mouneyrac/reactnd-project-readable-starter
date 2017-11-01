@@ -131,7 +131,6 @@ const commentSchema = { comments: [comment] };
 
 export const fetchPostComments = postId => dispatch => {
   api.fetchPostComments(postId).then(response => {
-    console.log(response);
     dispatch(
       setPostComments(
         normalize({ comments: response.data }, commentSchema).entities.comments

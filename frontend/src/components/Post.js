@@ -11,7 +11,6 @@ import { fetchPostComments } from "../actions";
 class Post extends Component {
   componentDidMount() {
     const { match } = this.props;
-    console.log(match.params.postId);
     if (match.params.postId) {
       this.props.fetchPostComments(match.params.postId);
     }

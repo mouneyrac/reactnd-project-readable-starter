@@ -18,13 +18,14 @@ export const fetchPosts = () =>
     headers: { Authorization: AUTHTOKEN }
   });
 
-export const fetchPostComments = postId =>
-  axios({
+export const fetchPostComments = postId => {
+  return axios({
     method: "get",
     url: `${APIURL}/posts/${postId}/comments`,
     data: {},
     headers: { Authorization: AUTHTOKEN }
   });
+};
 
 export const fetchCategory = categoryId =>
   axios({

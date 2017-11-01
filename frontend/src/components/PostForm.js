@@ -12,7 +12,7 @@ import { addPost, updatePost } from "../actions";
 class PostForm extends Component {
   state = {
     thePost: {
-      id: 0,
+      id: "",
       title: "",
       body: "",
       author: this.props.fullname,
@@ -27,13 +27,13 @@ class PostForm extends Component {
     // Adding a post: update the Post default category
     // when the categories have been retrieved.
     if (
-      this.state.thePost.id === 0 &&
+      this.state.thePost.id === "" &&
       this.state.thePost.category === "loading"
     ) {
       this.updateThePost("category", Object.keys(this.props.categories)[0]);
     }
 
-    if (this.state.thePost.id === 0 && this.props.postId) {
+    if (this.state.thePost.id === "" && this.props.postId) {
       this.setState({ thePost: this.props.posts[this.props.postId] });
     }
   }
@@ -46,9 +46,10 @@ class PostForm extends Component {
   }
 
   save(thePost) {
-    if (thePost.id === 0) {
+    if (thePost.id === "") {
+      const newid = moment().valueOf();
       let newPost = Object.assign(thePost, {
-        id: moment().valueOf()
+        id: `${newid}`
       });
       api.addPost(newPost);
       this.props.addPost(newPost);
@@ -62,7 +63,7 @@ class PostForm extends Component {
 
   render() {
     const pointsAuthor =
-      this.state.thePost.id === 0 ? (
+      this.state.thePost.id === "" ? (
         ""
       ) : (
         <PointsAuthor item={this.state.thePost} itemType="post" />
