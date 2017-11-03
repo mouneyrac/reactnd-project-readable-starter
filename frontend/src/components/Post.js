@@ -6,6 +6,7 @@ import PostCard from "./PostCard";
 import Crumbtrail from "./Crumbtrail";
 import { connect } from "react-redux";
 import { fetchPostComments } from "../actions";
+import { Redirect } from "react-router-dom";
 
 // const Post = ({ match }) => {
 class Post extends Component {
@@ -33,7 +34,7 @@ class Post extends Component {
         history={history}
       />
     ) : (
-      <div className="container" />
+      <Redirect to="/page/not/found/" push />
     );
 
     return (

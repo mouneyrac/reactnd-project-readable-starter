@@ -10,6 +10,7 @@ import Post from "./Post";
 import { connect } from "react-redux";
 import { fetchPosts } from "../actions";
 import { withRouter } from "react-router-dom";
+import NotFoundPage from "./NotFoundPage";
 
 type Props = {};
 
@@ -26,7 +27,8 @@ class App extends Component<Props> {
           <Route exact path="/add" component={EditPost} />
           <Route path="/edit/:postId" component={EditPost} />
           <Route path="/post/:postId" component={Post} />
-          <Route path="/:categoryId" component={Home} />
+          <Route exact path="/:categoryId" component={Home} />
+          <Route component={NotFoundPage} />
         </Switch>
       </div>
     );
