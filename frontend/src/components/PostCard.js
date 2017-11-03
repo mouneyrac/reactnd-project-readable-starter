@@ -15,7 +15,13 @@ const PostCard = ({ post, showComments, history }) => {
 
   let theComments = <Comments postId={id} commentCount={commentCount} />;
   if (showComments) {
-    theComments = <CommentList postId={id} />;
+    theComments = (
+      <span>
+        <br />
+        <br />
+        <h6>Comments ({commentCount}):</h6> <CommentList postId={id} />
+      </span>
+    );
   }
 
   return (
